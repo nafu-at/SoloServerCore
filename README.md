@@ -1,4 +1,4 @@
-# SoloServerCore2 [![Build Status](https://travis-ci.org/nafu-at/SoloServerCore2.svg?branch=master)](https://travis-ci.org/nafu-at/SoloServerCore2)
+# SoloServerCore2 [![Build Status](https://travis-ci.org/nafu-at/SoloServerCore2.svg?branch=master)](https://travis-ci.org/nafu-at/SoloServerCore2) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f16426a1edf24cc187a136897fdf9cf9)](https://www.codacy.com/project/NAFU_at/SoloServerCore2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nafu-at/SoloServerCore2&amp;utm_campaign=Badge_Grade_Dashboard)
 SoloServerCoreはSoloServerのために制作されたコアプラグインです。  
 SoloServerの動作に必要な基本的な機能が搭載されています。
 

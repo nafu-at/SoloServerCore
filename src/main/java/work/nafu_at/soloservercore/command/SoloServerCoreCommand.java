@@ -19,13 +19,10 @@ package work.nafu_at.soloservercore.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import work.nafu_at.soloservercore.MessageManager;
-import work.nafu_at.soloservercore.SoloServerCore;
 import work.nafu_at.soloservercore.command.sub.RandomTeleportCommand;
 import work.nafu_at.soloservercore.command.sub.ShowHideCommand;
 
 public class SoloServerCoreCommand implements CommandExecutor {
-    private final MessageManager message = SoloServerCore.getInstance().getMessageManager();
     private final RandomTeleportCommand randomTeleportCommand;
     private final ShowHideCommand showHideCommand;
 
