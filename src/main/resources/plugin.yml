@@ -1,0 +1,20 @@
+name: SoloServerCore
+version: ${project.version}
+main: work.nafu_at.soloservercore.SoloServerCore
+prefix: SSC2
+authors: [NAFU_at]
+description: SoloServerCore Plugin
+website: https://nafu-at.work/
+
+commands:
+  soloservercore:
+    description: It is a command for controlling the entire SoloServerCore.
+    aliases: [ssc]
+
+  home:
+    description: Move to your bed.
+    permission: soloservercore.home
+
+  spawn:
+    description: Move to your first spawn.
+    permission: soloservercore.spawn
