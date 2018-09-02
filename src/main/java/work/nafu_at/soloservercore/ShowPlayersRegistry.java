@@ -82,8 +82,7 @@ public class ShowPlayersRegistry {
     }
 
     public List<OfflinePlayer> getPlyaers(Player player) {
-        List<OfflinePlayer> players = registry.get(player);
-        return players;
+        return registry.get(player);
     }
 
 }

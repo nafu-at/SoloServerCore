@@ -26,14 +26,23 @@ import work.nafu_at.soloservercore.ShowPlayersRegistry;
 import work.nafu_at.soloservercore.SoloServerConfig;
 import work.nafu_at.soloservercore.SoloServerCore;
 import work.nafu_at.soloservercore.sql.PlayerSpawnDatabase;
-import work.nafu_at.soloservercore.teleport.RandomTeleporter;
+import work.nafu_at.soloservercore.teleport.TeleportManageTimer;
 
 import java.sql.SQLException;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class PlayerJoinEventListener implements Listener {
     private final SoloServerConfig config = SoloServerCore.getInstance().getSoloServerConfig();
     private final PlayerSpawnDatabase spawnDatabase = SoloServerCore.getInstance().getSpawnDatabase();
+    private final TeleportManageTimer teleportManage;
+
+    public PlayerJoinEventListener() {
+        teleportManage = new TeleportManageTimer();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(teleportManage, 0, TimeUnit.SECONDS.toMillis(5));
+    }
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
@@ -49,8 +58,10 @@ public class PlayerJoinEventListener implements Listener {
         }
         if (config.enableRandomSpawn()) {
             if (!Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId()).hasPlayedBefore() ||
-                    (config.doRegenerateIfNoData() && (location[0] == 0 && location[1] == 0 && location[2] == 0)))
-                Bukkit.getScheduler().runTask(SoloServerCore.getInstance(), new RandomTeleporter(event.getPlayer(), true));
+                    (config.doRegenerateIfNoData() && (location[0] == 0 && location[1] == 0 && location[2] == 0))) {
+                teleportManage.addWaitingPlayer(event.getPlayer());
+                event.getPlayer().sendMessage(SoloServerCore.getInstance().getMessageManager().getMessage("random-teleport-waiting"));
+            }
         }
 
         if (config.enableInvisible()) {
