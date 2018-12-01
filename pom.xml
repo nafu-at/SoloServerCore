@@ -22,7 +22,7 @@
 
     <groupId>work.nafu-at</groupId>
     <artifactId>SoloServerCore2</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3</version>
     <packaging>jar</packaging>
 
     <name>SoloServerCore</name>
@@ -31,7 +31,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>https://nafu-at.work/</url>
+    <url>https://nafusoft.net/</url>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -39,7 +39,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -48,7 +48,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13.1-R0.1-SNAPSHOT</version>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- slf4j-api -->
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

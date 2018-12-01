@@ -92,8 +92,6 @@ public final class SoloServerCore extends JavaPlugin {
             connector.close();
     }
 
-
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         switch (command.getName()) {

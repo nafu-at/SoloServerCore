@@ -30,6 +30,14 @@ public class MessageManager {
         resource = ResourceBundle.getBundle("language.messages", locale);
     }
 
+    /**
+     * ローカライズされたメッセージを取得できます。
+     *
+     * @param index メッセージ項目名
+     * @return メッセージ
+     * @deprecated 次回以降のアップデートで無効化予定です。
+     */
+    @Deprecated
     public String getMessage(String index) {
         return ChatColor.translateAlternateColorCodes('&', resource.getString(index));
     }

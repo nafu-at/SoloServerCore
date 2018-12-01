@@ -56,12 +56,12 @@ public class PlayerJoinEventListener implements Listener {
         } catch (SQLException e) {
             SoloServerCore.getPluginLogger().log(Level.WARNING, "プレイヤーのスポーンロケーションの取得に失敗しました。");
         }
-        if (config.enableRandomSpawn()) {
-            if (!Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId()).hasPlayedBefore() ||
-                    (config.doRegenerateIfNoData() && (location[0] == 0 && location[1] == 0 && location[2] == 0))) {
+
+        if (config.enableRandomSpawn() &&
+                (!Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId()).hasPlayedBefore() ||
+                        (config.doRegenerateIfNoData() && (location[0] == 0 && location[1] == 0 && location[2] == 0)))) {
                 teleportManage.addWaitingPlayer(event.getPlayer());
                 event.getPlayer().sendMessage(SoloServerCore.getInstance().getMessageManager().getMessage("random-teleport-waiting"));
-            }
         }
 
         if (config.enableInvisible()) {

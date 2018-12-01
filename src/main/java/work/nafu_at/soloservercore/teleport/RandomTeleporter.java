@@ -60,9 +60,9 @@ public class RandomTeleporter implements Runnable {
                 if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
                     if (!world.getBlockAt(x, y ,z).getType().equals(Material.WATER)) {
                         try {
-                            if (SoloServerCore.getInstance().getSoloServerConfig().doAvoidDuplication()) {
-                                if (SoloServerCore.getInstance().getSpawnDatabase().getUUID(x, y+1, z) != null)
-                                    break;
+                            if (SoloServerCore.getInstance().getSoloServerConfig().doAvoidDuplication() &&
+                                    SoloServerCore.getInstance().getSpawnDatabase().getUUID(x, y + 1, z) != null) {
+                                break;
                             }
                             if (doSave)
                                 SoloServerCore.getInstance().getSpawnDatabase().saveLocation(

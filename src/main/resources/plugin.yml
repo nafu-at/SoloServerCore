@@ -4,7 +4,7 @@ main: work.nafu_at.soloservercore.SoloServerCore
 prefix: SSC2
 authors: [NAFU_at]
 description: SoloServerCore Plugin
-website: https://nafu-at.work/
+website: https://nafusoft.net/
 
 commands:
   soloservercore:
