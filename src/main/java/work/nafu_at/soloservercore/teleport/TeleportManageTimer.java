@@ -38,7 +38,7 @@ public class TeleportManageTimer extends TimerTask {
 
     @Override
     public void run() {
-        if (waiting.isEmpty()) {
+        if (!waiting.isEmpty()) {
             Player player = waiting.get(0);
             Bukkit.getScheduler().runTask(SoloServerCore.getInstance(), new RandomTeleporter(player, true));
             waiting.remove(player);

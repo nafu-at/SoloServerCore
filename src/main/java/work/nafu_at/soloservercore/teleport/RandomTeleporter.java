@@ -21,7 +21,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import work.nafu_at.soloservercore.MessageManager;
 import work.nafu_at.soloservercore.SoloServerCore;
 
@@ -35,7 +34,6 @@ public class RandomTeleporter implements Runnable {
     private final int maxZ = SoloServerCore.getInstance().getSoloServerConfig().getMaxRandomZ();
     private final Player target;
     private final boolean doSave;
-    private boolean safe;
 
     public RandomTeleporter(Player target, boolean doSave) {
         this.target = target;
@@ -52,37 +50,53 @@ public class RandomTeleporter implements Runnable {
 
         target.sendMessage(message.getMessage("random-teleport-start"));
         do {
-            x = secureRandom.nextInt(maxX*2)-maxX;
-            z = secureRandom.nextInt(maxZ*2)-maxZ;
-            do {
-                Location location = new Location(world, x, y+1, z);
-                location.getChunk().load(true);
-                if (!world.getBlockAt(x, y, z).getType().equals(Material.AIR)) {
-                    if (!world.getBlockAt(x, y ,z).getType().equals(Material.WATER)) {
-                        try {
-                            if (SoloServerCore.getInstance().getSoloServerConfig().doAvoidDuplication() &&
-                                    SoloServerCore.getInstance().getSpawnDatabase().getUUID(x, y + 1, z) != null) {
-                                break;
-                            }
-                            if (doSave)
-                                SoloServerCore.getInstance().getSpawnDatabase().saveLocation(
-                                        target.getUniqueId(), x, y+1, z);
-                            PlayerTeleportEvent event = new PlayerTeleportEvent(target, target.getLocation(), location);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (!event.isCancelled()) {
-                                target.teleport(location);
-                                target.sendMessage(String.format(
-                                        message.getMessage("teleported"), target.getName(), x, y+1, z));
-                            }
-                            safe = true;
-                        } catch (SQLException e) {
-                            SoloServerCore.getPluginLogger().log(Level.WARNING, "MySQLとの通信に失敗しました。", e);
-                            return;
-                        }
-                    }
-                } else
-                    y--;
-            } while (!safe);
-        } while (!safe);
+            x = secureRandom.nextInt(maxX * 2) - maxX;
+            z = secureRandom.nextInt(maxZ * 2) - maxZ;
+
+            Location location = searchSafeLocation(world, x, y, z);
+            if (location != null) {
+                try {
+                    if (SoloServerCore.getInstance().getSoloServerConfig().doAvoidDuplication() &&
+                            SoloServerCore.getInstance().getSpawnDatabase().getUUID(location.getBlockX(), location.getBlockY(), location.getBlockZ()) != null)
+                        break;
+
+                    if (doSave)
+                        SoloServerCore.getInstance().getSpawnDatabase().saveLocation(
+                                target.getUniqueId(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+
+                    target.teleport(location);
+                    target.sendMessage(String.format(
+                            message.getMessage("teleported"), target.getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ()));
+                    return;
+                } catch (SQLException e) {
+                    SoloServerCore.getPluginLogger().log(Level.WARNING, "MySQLとの通信に失敗しました。", e);
+                    return;
+                }
+            }
+        } while (true);
+    }
+
+    private Location searchSafeLocation(World world, int x, int y, int z) {
+        do {
+            Location point1 = new Location(world, x, y, z);
+            point1.getChunk().load(true);
+
+            if (!world.getBlockAt(point1).getType().equals(Material.AIR)) {
+                Location point2 = new Location(world, x, y + 2, z);
+                if (world.getBlockAt(point2).getType().equals(Material.AIR) &&
+                        !world.getBlockAt(point2).getType().equals(Material.WATER)) {
+                    return point2;
+                } else {
+                    Location point3 = new Location(world, x, y + 4, z);
+                    if (world.getBlockAt(point3).getType().equals(Material.AIR) &&
+                            !world.getBlockAt(point2).getType().equals(Material.WATER))
+                        return point3;
+                }
+            } else {
+                y = -3;
+                if (y <= 0)
+                    return null;
+            }
+        } while (true);
     }
 }

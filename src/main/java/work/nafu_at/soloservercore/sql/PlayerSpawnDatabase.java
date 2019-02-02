@@ -30,7 +30,7 @@ public class PlayerSpawnDatabase extends MySQLConnector {
 
     public PlayerSpawnDatabase(MySQLConnector connector) {
         this.connector = connector;
-        table =  SoloServerCore.getInstance().getSoloServerConfig().getMysqlPrefix() + "location";
+        table = SoloServerCore.getInstance().getSoloServerConfig().getMysqlPrefix() + "location";
     }
 
     public void mkTable() throws SQLException {

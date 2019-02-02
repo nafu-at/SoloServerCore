@@ -35,7 +35,6 @@ public class SoloServerConfig {
 
     private boolean enableInvisible;
     private boolean disableJoinMessage;
-    private boolean dynmapSupport = false;
     private boolean limitedPvP;
     private List<String> invisibleWhitelist;
 
@@ -71,8 +70,6 @@ public class SoloServerConfig {
         enableInvisible = config.getBoolean("invisible.enable");
         if (enableInvisible) {
             disableJoinMessage = config.getBoolean("invisible.disable-join-message");
-            // TODO: 2018/08/26 Dynmapサポートの追加
-            // dynmapSupport = config.getBoolean("invisible.dynmap-support");
             limitedPvP = config.getBoolean("invisible.limited-pvp");
             invisibleWhitelist = config.getStringList("invisible.whitelist");
         }
@@ -134,10 +131,6 @@ public class SoloServerConfig {
 
     public boolean disableJoinMessage() {
         return disableJoinMessage;
-    }
-
-    public boolean doDynmapSupport() {
-        return dynmapSupport;
     }
 
     public boolean isLimitedPvP() {

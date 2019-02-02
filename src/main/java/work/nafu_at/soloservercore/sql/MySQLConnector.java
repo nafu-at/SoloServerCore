@@ -27,7 +27,7 @@ import java.sql.SQLException;
 public class MySQLConnector {
     private HikariDataSource dataSource;
 
-    public MySQLConnector () {
+    public MySQLConnector() {
         SoloServerConfig config = SoloServerCore.getInstance().getSoloServerConfig();
         HikariConfig hconfig = new HikariConfig();
         hconfig.setDriverClassName("com.mysql.jdbc.Driver");

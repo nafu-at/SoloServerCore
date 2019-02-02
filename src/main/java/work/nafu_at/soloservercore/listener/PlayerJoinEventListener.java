@@ -60,8 +60,8 @@ public class PlayerJoinEventListener implements Listener {
         if (config.enableRandomSpawn() &&
                 (!Bukkit.getOfflinePlayer(event.getPlayer().getUniqueId()).hasPlayedBefore() ||
                         (config.doRegenerateIfNoData() && (location[0] == 0 && location[1] == 0 && location[2] == 0)))) {
-                teleportManage.addWaitingPlayer(event.getPlayer());
-                event.getPlayer().sendMessage(SoloServerCore.getInstance().getMessageManager().getMessage("random-teleport-waiting"));
+            teleportManage.addWaitingPlayer(event.getPlayer());
+            event.getPlayer().sendMessage(SoloServerCore.getInstance().getMessageManager().getMessage("random-teleport-waiting"));
         }
 
         if (config.enableInvisible()) {
